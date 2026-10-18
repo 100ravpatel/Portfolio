@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saurav Patel | Senior Data Engineer — 3D Portfolio</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        snow: '#29B5E8',
+                        dark: '#050811',
+                        card: 'rgba(13, 20, 36, 0.65)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #050811;
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .glass-card {
+            background: rgba(13, 20, 38, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(41, 181, 232, 0.18);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+            transform-style: preserve-3d;
+        }
+        .glass-card:hover {
+            border-color: rgba(41, 181, 232, 0.5);
+            box-shadow: 0 25px 60px rgba(41, 181, 232, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #ffffff 0%, #29B5E8 50%, #818cf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #29B5E8, #818cf8, #38bdf8);
+            z-index: 100;
+            width: 0%;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050811;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #29B5E8;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-snow selection:text-dark">
+
+    <!-- Scroll Progress Bar -->
+    <div id="scroll-progress" class="progress-bar"></div>
+
+    <!-- 3D WebGL Canvas -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Navigation -->
+    <header class="fixed top-0 w-full z-50 border-b border-white/5 bg-dark/60 backdrop-blur-md">
+        <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="#hero" class="font-display font-bold text-xl tracking-tight flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-snow animate-pulse"></span>
+                <span>SAURAV<span class="text-snow">.DATA</span></span>
+            </a>
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+                <a href="#impact" class="hover:text-snow transition-colors">Impact</a>
+                <a href="#experience" class="hover:text-snow transition-colors">Experience</a>
+                <a href="#skills" class="hover:text-snow transition-colors">Architecture & Skills</a>
+                <a href="#education" class="hover:text-snow transition-colors">Education</a>
+                <a href="Saurav_patel.pdf" download class="hover:text-snow transition-colors flex items-center gap-1.5">
+                    <i data-lucide="file-down" class="w-4 h-4 text-snow"></i> Resume
+                </a>
+                <a href="#contact" class="px-4 py-2 rounded-full bg-snow/10 border border-snow/40 text-snow hover:bg-snow hover:text-dark transition-all font-semibold">
+                    Contact Me
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Scrollable Content -->
+    <main class="relative z-10 max-w-6xl mx-auto px-6">
+
+        <!-- SECTION 1: HERO -->
+        <section id="hero" class="min-h-screen flex flex-col justify-center pt-20 pb-12">
+            <div class="max-w-3xl space-y-6">
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-snow/10 border border-snow/30 text-snow text-xs font-mono uppercase tracking-wider">
+                    <i data-lucide="database" class="w-3.5 h-3.5"></i>
+                    <span>Senior Data Engineer • Snowflake & SingleStore Architect</span>
+                </div>
+                
+                <h1 class="font-display text-5xl sm:text-7xl font-bold tracking-tight leading-[1.08]">
+                    Saurav Patel
+                </h1>
+                
+                <p class="text-xl sm:text-2xl font-display text-gradient font-semibold">
+                    Architecting enterprise-scale data platforms & sub-second analytics for global infrastructure.
+                </p>
+
+                <p class="text-slate-300 text-base sm:text-lg leading-relaxed max-w-2xl">
+                    Senior Data Engineer with 5 years of experience architecting high-throughput data platforms on 
+                    <span class="text-white font-medium">Snowflake</span> and <span class="text-white font-medium">SingleStore</span>, 
+                    delivering sub-second query performance for <span class="text-white font-medium">Apple Inc.'s</span> global data infrastructure. 
+                    Specialized in ETL/ELT pipeline design, advanced SQL optimization, and executive-level Tableau dashboards across 10+ cross-functional business units.
+                </p>
+
+                <!-- Quick Location & Contact Pills -->
+                <div class="flex flex-wrap gap-3 pt-2 text-xs sm:text-sm text-slate-300 font-mono">
+                    <span class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10">
+                        <i data-lucide="map-pin" class="w-4 h-4 text-snow"></i> Kolkata, West Bengal
+                    </span>
+                    <a href="mailto:sauravpateliit120@gmail.com" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 hover:border-snow/50 transition-colors">
+                        <i data-lucide="mail" class="w-4 h-4 text-snow"></i> sauravpateliit120@gmail.com
+                    </a>
+                    <a href="tel:+918541882831" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 hover:border-snow/50 transition-colors">
+                        <i data-lucide="phone" class="w-4 h-4 text-snow"></i> +91 85418 82831
+                    </a>
+                    <a href="https://in.linkedin.com/in/100ravpatel" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-snow/15 border border-snow/40 text-snow hover:bg-snow hover:text-dark transition-all">
+                        <i data-lucide="linkedin" class="w-4 h-4"></i> linkedin.com/in/100ravpatel
+                    </a>
+                </div>
+
+                <div class="pt-6 flex flex-wrap items-center gap-4">
+                    <a href="#contact" class="px-6 py-3.5 rounded-xl bg-snow text-dark font-display font-bold text-sm tracking-wide hover:shadow-[0_0_30px_rgba(41,181,232,0.6)] transition-all flex items-center gap-2">
+                        Send a Message <i data-lucide="send" class="w-4 h-4"></i>
+                    </a>
+                    <a href="Saurav_patel.pdf" download class="px-6 py-3.5 rounded-xl glass-card text-white font-display font-medium text-sm hover:border-snow/50 transition-all flex items-center gap-2">
+                        <i data-lucide="download" class="w-4 h-4 text-snow"></i> Download Resume (PDF)
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: QUANTIFIED IMPACT METRICS -->
+        <section id="impact" class="py-20">
+            <div class="mb-10">
+                <p class="font-mono text-xs uppercase tracking-widest text-snow mb-2">// 01. TELEMETRY & BENCHMARKS</p>
+                <h2 class="font-display text-3xl sm:text-4xl font-bold">Production Impact at Scale</h2>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="glass-card tilt-card p-6 rounded-2xl">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="p-2.5 rounded-xl bg-snow/10 text-snow"><i data-lucide="cpu" class="w-6 h-6"></i></span>
+                        <span class="font-mono text-xs text-emerald-400 bg-emerald-400/10 px-2.5 py-1 rounded-full">-40% Latency</span>
+                    </div>
+                    <h3 class="font-display text-4xl font-bold text-white mb-1">500M+</h3>
+                    <p class="text-sm font-medium text-slate-300">Daily Records Ingested</p>
+                    <p class="text-xs text-slate-400 mt-2">Across 15+ production ETL/ELT pipelines into Snowflake & SingleStore.</p>
+                </div>
+
+                <div class="glass-card tilt-card p-6 rounded-2xl">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="p-2.5 rounded-xl bg-indigo-500/10 text-indigo-400"><i data-lucide="zap" class="w-6 h-6"></i></span>
+                        <span class="font-mono text-xs text-snow bg-snow/10 px-2.5 py-1 rounded-full">-65% Exec Time</span>
+                    </div>
+                    <h3 class="font-display text-4xl font-bold text-white mb-1">~$120K<span class="text-lg font-normal text-slate-400">/yr</span></h3>
+                    <p class="text-sm font-medium text-slate-300">Compute Credits Saved</p>
+                    <p class="text-xs text-slate-400 mt-2">Via SQL query profiling, result caching, and clustering key architecture.</p>
+                </div>
+
+                <div class="glass-card tilt-card p-6 rounded-2xl">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="p-2.5 rounded-xl bg-cyan-500/10 text-cyan-400"><i data-lucide="bar-chart-3" class="w-6 h-6"></i></span>
+                        <span class="font-mono text-xs text-emerald-400 bg-emerald-400/10 px-2.5 py-1 rounded-full">500+ DAUs</span>
+                    </div>
+                    <h3 class="font-display text-4xl font-bold text-white mb-1">25+</h3>
+                    <p class="text-sm font-medium text-slate-300">Executive BI Dashboards</p>
+                    <p class="text-xs text-slate-400 mt-2">50% faster report load times and +35% end-user satisfaction score.</p>
+                </div>
+
+                <div class="glass-card tilt-card p-6 rounded-2xl">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="p-2.5 rounded-xl bg-purple-500/10 text-purple-400"><i data-lucide="shield-check" class="w-6 h-6"></i></span>
+                        <span class="font-mono text-xs text-purple-300 bg-purple-500/10 px-2.5 py-1 rounded-full">Zero Incidents</span>
+                    </div>
+                    <h3 class="font-display text-4xl font-bold text-white mb-1">99.9%</h3>
+                    <p class="text-sm font-medium text-slate-300">Pipeline Reliability</p>
+                    <p class="text-xs text-slate-400 mt-2">Sustained over 18 months with 99.7% Tableau Server uptime for 300+ users.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: EXPERIENCE -->
+        <section id="experience" class="py-20">
+            <div class="mb-12">
+                <p class="font-mono text-xs uppercase tracking-widest text-snow mb-2">// 02. PRODUCTION EXPERIENCE</p>
+                <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+                    <div>
+                        <h2 class="font-display text-3xl sm:text-4xl font-bold">Senior Associate Consultant</h2>
+                        <p class="text-lg text-slate-300 mt-1">
+                            <span class="text-white font-semibold">Infosys</span> &nbsp;|&nbsp; 
+                            Client: <span class="text-snow font-semibold">Apple Inc.</span>
+                        </p>
+                    </div>
+                    <div class="font-mono text-sm px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-slate-300 self-start">
+                        Sep 2021 – Present • 5 Years Exp
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-8">
+                <!-- Project 1: Snowflake Data Engineer -->
+                <div class="glass-card tilt-card rounded-3xl p-8 sm:p-10 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-snow/10 rounded-full blur-3xl pointer-events-none"></div>
+                    
+                    <div class="flex flex-wrap items-center justify-between gap-4 pb-6 mb-6 border-b border-white/10">
+                        <div class="flex items-center gap-3">
+                            <div class="p-3 rounded-2xl bg-snow/15 text-snow border border-snow/30">
+                                <i data-lucide="snowflake" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <span class="font-mono text-xs text-snow uppercase tracking-wider">Project 01 • Core Data Platform</span>
+                                <h3 class="font-display text-2xl font-bold text-white">Role: Snowflake Data Engineer</h3>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap gap-2 font-mono text-xs">
+                            <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10">Snowflake</span>
+                            <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10">SingleStore</span>
+                            <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10">COPY INTO</span>
+                            <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10">Time Travel</span>
+                        </div>
+                    </div>
+
+                    <ul class="space-y-4 text-slate-200 leading-relaxed">
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="check-circle-2" class="w-5 h-5 text-snow shrink-0 mt-1"></i>
+                            <span><strong>High-Throughput ETL/ELT Architecture:</strong> Architected <strong>15+ production ETL/ELT pipelines</strong> ingesting <strong>500M+ daily records</strong> into Snowflake and SingleStore, cutting data latency by <strong>40%</strong> and enabling near-real-time analytics for Apple's supply chain team.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="check-circle-2" class="w-5 h-5 text-snow shrink-0 mt-1"></i>
+                            <span><strong>SQL & Compute Optimization:</strong> Optimized complex SQL queries through query profiling, result caching, and clustering keys, reducing average execution time by <strong>65%</strong> and saving <strong>~$120K/year</strong> in Snowflake compute credits.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="check-circle-2" class="w-5 h-5 text-snow shrink-0 mt-1"></i>
+                            <span><strong>Zero-Copy Cloning & Time Travel Recovery:</strong> Engineered zero-copy table cloning using Snowflake <code class="text-snow font-mono text-sm">CLONE</code> and Time Travel (<code class="text-snow font-mono text-sm">AT/BEFORE</code> timestamps), eliminating <strong>8 hours/week</strong> of manual data restoration effort for the QA team.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="check-circle-2" class="w-5 h-5 text-snow shrink-0 mt-1"></i>
+                            <span><strong>Bulk-Load Automation:</strong> Drove bulk-load automation (<code class="text-snow font-mono text-sm">COPY INTO</code>), processing large datasets per batch with <strong>99.9% pipeline reliability</strong> across 18 months of production operation.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="check-circle-2" class="w-5 h-5 text-snow shrink-0 mt-1"></i>
+                            <span><strong>Cross-Functional Data Modeling:</strong> Partnered with <strong>6 cross-functional stakeholder groups</strong> to translate business requirements into technical data models, reducing rework cycles by <strong>30%</strong>.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Project 2: Tableau BI Developer & Server Admin -->
+                <div class="glass-card tilt-card rounded-3xl p-8 sm:p-10 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                    
+                    <div class="flex flex-wrap items-center justify-between gap-4 pb-6 mb-6 border-b border-white/10">
+                        <div class="flex items-center gap-3">
+                            <div class="p-3 rounded-2xl bg-indigo-500/15 text-indigo-400 border border-indigo-500/30">
+                                <i data-lucide="layout-dashboard" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <span class="font-mono text-xs text-indigo-400 uppercase tracking-wider">Project 02 • Executive BI & Governance</span>
+                                <h3 class="font-display text-2xl font-bold text-white">Role: Tableau BI Developer & Server Administrator</h3>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap gap-2 font-mono text-xs">
+                            <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10">Tableau Desktop</span>
+                            <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10">Tableau Server</span>
+                            <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10">LOD Expressions</span>
+                            <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10">AD Governance</span>
+                        </div>
+                    </div>
+
+                    <ul class="space-y-4 text-slate-200 leading-relaxed">
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="check-circle-2" class="w-5 h-5 text-indigo-400 shrink-0 mt-1"></i>
+                            <span><strong>Executive Dashboard Delivery:</strong> Delivered <strong>25+ executive Tableau dashboards</strong> serving <strong>500+ daily active users</strong> via LOD calculations and dynamic filters, driving a <strong>20% reduction</strong> in reporting turnaround time.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="check-circle-2" class="w-5 h-5 text-indigo-400 shrink-0 mt-1"></i>
+                            <span><strong>Performance Tuning:</strong> Reduced Tableau report load times through query optimization and extract scheduling, improving end-user satisfaction scores by <strong>35%</strong> and cutting load times by <strong>50%</strong>.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="check-circle-2" class="w-5 h-5 text-indigo-400 shrink-0 mt-1"></i>
+                            <span><strong>Pre-Production Data Validation:</strong> Established data validation frameworks across ETL stages, catching multiple issues pre-production and maintaining <strong>zero critical data incidents for 12 consecutive months</strong>.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="check-circle-2" class="w-5 h-5 text-indigo-400 shrink-0 mt-1"></i>
+                            <span><strong>Executive Visual Narratives:</strong> Translated KPI requirements from 4 senior stakeholders into visual narratives, compressing the insight-to-decision cycle from <strong>5 days to same-day</strong> for key business reviews.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="check-circle-2" class="w-5 h-5 text-indigo-400 shrink-0 mt-1"></i>
+                            <span><strong>Server Administration & Governance:</strong> Administered Tableau Server for <strong>300+ users</strong> — managing AD group provisioning, permission governance, and extract scheduling while achieving <strong>99.7% uptime</strong>.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: TECHNICAL SKILLS MATRIX -->
+        <section id="skills" class="py-20">
+            <div class="mb-12">
+                <p class="font-mono text-xs uppercase tracking-widest text-snow mb-2">// 03. TECHNICAL ARSENAL</p>
+                <h2 class="font-display text-3xl sm:text-4xl font-bold">Architecture & Skill Matrix</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="glass-card tilt-card p-6 rounded-2xl">
+                    <div class="flex items-center gap-3 mb-4">
+                        <i data-lucide="cloud" class="w-5 h-5 text-snow"></i>
+                        <h3 class="font-display font-bold text-lg">Cloud & Data Platforms</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1.5 rounded-lg bg-snow/15 border border-snow/40 text-snow font-mono text-xs">Snowflake</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 font-mono text-xs">SingleStore (MemSQL)</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 font-mono text-xs">GitHub</span>
+                    </div>
+                </div>
+
+                <div class="glass-card tilt-card p-6 rounded-2xl">
+                    <div class="flex items-center gap-3 mb-4">
+                        <i data-lucide="terminal" class="w-5 h-5 text-snow"></i>
+                        <h3 class="font-display font-bold text-lg">Languages & Query</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1.5 rounded-lg bg-snow/15 border border-snow/40 text-snow font-mono text-xs">Advanced SQL</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 font-mono text-xs">Window Functions</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 font-mono text-xs">CTEs</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 font-mono text-xs">Query Optimization</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 font-mono text-xs">LOD Expressions</span>
+                    </div>
+                </div>
+
+                <div class="glass-card tilt-card p-6 rounded-2xl">
+                    <div class="flex items-center gap-3 mb-4">
+                        <i data-lucide="workflow" class="w-5 h-5 text-snow"></i>
+                        <h3 class="font-display font-bold text-lg">Data Engineering</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1.5 rounded-lg bg-snow/15 border border-snow/40 text-snow font-mono text-xs">ETL/ELT Pipeline Design</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 font-mono text-xs">Data Modeling</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 font-mono text-xs">Bulk Load/Unload</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 font-mono text-xs">Time Travel</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 font-mono text-xs">Zero-Copy Cloning</span>
+                    </div>
+                </div>
+
+                <div class="glass-card tilt-card p-6 rounded-2xl">
+                    <div class="flex items-center gap-3 mb-4">
+                        <i data-lucide="pie-chart" class="w-5 h-5 text-indigo-400"></i>
+                        <h3 class="font-display font-bold text-lg">BI & Visualization</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1.5 rounded-lg bg-indigo-500/15 border border-indigo-400/40 text-indigo-300 font-mono text-xs">Tableau Desktop</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-indigo-500/15 border border-indigo-400/40 text-indigo-300 font-mono text-xs">Tableau Server (Admin)</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 font-mono text-xs">Power BI</span>
+                    </div>
+                </div>
+
+                <div class="glass-card tilt-card p-6 rounded-2xl">
+                    <div class="flex items-center gap-3 mb-4">
+                        <i data-lucide="wrench" class="w-5 h-5 text-cyan-400"></i>
+                        <h3 class="font-display font-bold text-lg">Client & Ecosystem Tools</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 font-mono text-xs">Keystone</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 font-mono text-xs">Devex</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 font-mono text-xs">Quip</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 font-mono text-xs">Keynote</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 font-mono text-xs">DAG</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 font-mono text-xs">Snowcat</span>
+                    </div>
+                </div>
+
+                <div class="glass-card tilt-card p-6 rounded-2xl">
+                    <div class="flex items-center gap-3 mb-4">
+                        <i data-lucide="users" class="w-5 h-5 text-emerald-400"></i>
+                        <h3 class="font-display font-bold text-lg">Leadership & Strategy</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 font-mono text-xs">Technical Leadership</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 font-mono text-xs">Executive Stakeholder Comm</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 font-mono text-xs">Public Speaking</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 font-mono text-xs">Team Mentoring</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: EDUCATION & GOOGLE SHEETS CONTACT FORM -->
+        <section id="education" class="py-20">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                
+                <!-- Left Column: Education & Direct Contact Info -->
+                <div class="lg:col-span-5 space-y-6">
+                    <div class="glass-card tilt-card p-8 rounded-3xl">
+                        <p class="font-mono text-xs uppercase tracking-widest text-snow mb-2">// 04. ACADEMIC FOUNDATION</p>
+                        <h2 class="font-display text-2xl font-bold mb-6">Education</h2>
+                        <div class="p-4 rounded-2xl bg-white/5 border border-white/10">
+                            <div class="flex items-center justify-between text-xs font-mono text-snow mb-1">
+                                <span>B.TECH DEGREE</span>
+                                <span>2017 – 2021</span>
+                            </div>
+                            <h3 class="font-display text-xl font-bold text-white">Dr. B.C. Roy Engineering College</h3>
+                            <p class="text-slate-300 text-sm mt-1">Bachelor of Technology in Computer Science</p>
+                        </div>
+                    </div>
+
+                    <div class="glass-card tilt-card p-8 rounded-3xl space-y-4">
+                        <p class="font-mono text-xs uppercase tracking-widest text-snow">// DIRECT CHANNELS</p>
+                        <h3 class="font-display text-xl font-bold">Reach Out Directly</h3>
+                        <div class="space-y-3 pt-2 text-sm font-mono">
+                            <a href="mailto:sauravpateliit120@gmail.com" class="p-3.5 rounded-xl bg-white/5 border border-white/10 flex items-center justify-between hover:border-snow transition-colors">
+                                <span class="truncate">sauravpateliit120@gmail.com</span>
+                                <i data-lucide="mail" class="w-4 h-4 text-snow shrink-0 ml-2"></i>
+                            </a>
+                            <a href="tel:+918541882831" class="p-3.5 rounded-xl bg-white/5 border border-white/10 flex items-center justify-between hover:border-snow transition-colors">
+                                <span>+91 85418 82831</span>
+                                <i data-lucide="phone-call" class="w-4 h-4 text-snow"></i>
+                            </a>
+                            <a href="https://in.linkedin.com/in/100ravpatel" target="_blank" rel="noopener noreferrer" class="p-3.5 rounded-xl bg-white/5 border border-white/10 flex items-center justify-between hover:border-snow transition-colors">
+                                <span>linkedin.com/in/100ravpatel</span>
+                                <i data-lucide="external-link" class="w-4 h-4 text-snow"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Google Sheets Connected Contact Form -->
+                <div id="contact" class="lg:col-span-7 glass-card p-8 sm:p-10 rounded-3xl relative overflow-hidden">
+                    <div class="absolute -bottom-16 -right-16 w-64 h-64 bg-snow/15 rounded-full blur-3xl pointer-events-none"></div>
+                    
+                    <p class="font-mono text-xs uppercase tracking-widest text-snow mb-2">// 05. REAL-TIME INGESTION PIPELINE</p>
+                    <h2 class="font-display text-3xl font-bold mb-2">Send a Message</h2>
+                    <p class="text-slate-300 text-sm mb-6">
+                        Have a Senior Data Engineering role, consulting inquiry, or project? Submit below—your message is piped directly into my Google Sheet in real time.
+                    </p>
+
+                    <form id="portfolio-contact-form" class="space-y-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label for="name" class="block text-xs font-mono uppercase text-slate-300 mb-1.5">Your Name *</label>
+                                <input type="text" id="name" name="name" required placeholder="John Doe"
+                                    class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/15 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-snow transition-colors">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-xs font-mono uppercase text-slate-300 mb-1.5">Email Address *</label>
+                                <input type="email" id="email" name="email" required placeholder="john@company.com"
+                                    class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/15 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-snow transition-colors">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="company" class="block text-xs font-mono uppercase text-slate-300 mb-1.5">Company / Role Opportunity</label>
+                            <input type="text" id="company" name="company" placeholder="e.g., Hiring Manager @ Tech Corp — Lead Snowflake Role"
+                                class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/15 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-snow transition-colors">
+                        </div>
+
+                        <div>
+                            <label for="message" class="block text-xs font-mono uppercase text-slate-300 mb-1.5">Message *</label>
+                            <textarea id="message" name="message" rows="4" required placeholder="Hi Saurav, we'd love to discuss an opportunity with you..."
+                                class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/15 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-snow transition-colors resize-none"></textarea>
+                        </div>
+
+                        <button type="submit" id="submit-btn"
+                            class="w-full py-3.5 px-6 rounded-xl bg-snow text-dark font-display font-bold text-sm tracking-wide hover:shadow-[0_0_25px_rgba(41,181,232,0.5)] transition-all flex items-center justify-center gap-2">
+                            <span id="submit-text">Send Message</span>
+                            <i data-lucide="send" class="w-4 h-4"></i>
+                        </button>
+
+                        <!-- Status Banner -->
+                        <div id="form-status" class="hidden p-4 rounded-xl text-xs font-mono"></div>
+                    </form>
+                </div>
+
+            </div>
+        </section>
+
+        <footer class="py-10 border-t border-white/10 text-center text-xs font-mono text-slate-500">
+            <p>© 2026 SAURAV PATEL • INTERACTIVE 3D WEBGL DATA PORTFOLIO</p>
+        </footer>
+    </main>
+
+    <!-- SCRIPTS: Icons, Google Sheets Form Handler, 3D Tilt & Three.js Scroll Scene -->
+    <script>
+        lucide.createIcons();
+
+        // Connected Google Apps Script Web App Endpoint
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxEZW_OFN4iAt6Q4CNus8Sfq8IcLQPeMVDyO4-IvuBFRTw-szvMvKh6BCCWqIHmJ8Fx/exec';
+
+        const contactForm = document.getElementById('portfolio-contact-form');
+        const submitBtn = document.getElementById('submit-btn');
+        const submitText = document.getElementById('submit-text');
+        const formStatus = document.getElementById('form-status');
+
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            submitBtn.disabled = true;
+            submitText.textContent = 'Ingesting Record into Google Sheet...';
+            formStatus.classList.add('hidden');
+
+            const payload = {
+                name: document.getElementById('name').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                company: document.getElementById('company').value.trim(),
+                message: document.getElementById('message').value.trim()
+            };
+
+            try {
+                await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'text/plain;charset=utf-8'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                formStatus.className = 'block p-4 rounded-xl text-xs font-mono bg-emerald-500/15 border border-emerald-500/40 text-emerald-300';
+                formStatus.textContent = '✓ Message delivered! Your inquiry has been logged directly to Saurav\'s Google Sheet.';
+                contactForm.reset();
+            } catch (err) {
+                formStatus.className = 'block p-4 rounded-xl text-xs font-mono bg-rose-500/15 border border-rose-500/40 text-rose-300';
+                formStatus.textContent = '✕ Pipeline Error: Could not reach the endpoint. Please email sauravpateliit120@gmail.com directly.';
+            } finally {
+                submitBtn.disabled = false;
+                submitText.textContent = 'Send Message';
+            }
+        });
+
+        // 3D Card Hover Tilt Effect
+        document.querySelectorAll('.tilt-card').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = ((y - centerY) / centerY) * -5;
+                const rotateY = ((x - centerX) / centerX) * 5;
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(4px)`;
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0px)';
+            });
+        });
+
+        // Three.js 3D Scrollable Data Cloud Scene
+        const canvas = document.getElementById('bg-canvas');
+        const scene = new THREE.Scene();
+        scene.fog = new THREE.FogExp2(0x050811, 0.035);
+
+        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+        camera.position.set(0, 0, 14);
+
+        const coreGroup = new THREE.Group();
+        scene.add(coreGroup);
+
+        const icoGeo = new THREE.IcosahedronGeometry(3.2, 1);
+        const icoMat = new THREE.MeshBasicMaterial({
+            color: 0x29B5E8,
+            wireframe: true,
+            transparent: true,
+            opacity: 0.22
+        });
+        const coreMesh = new THREE.Mesh(icoGeo, icoMat);
+        coreGroup.add(coreMesh);
+
+        const innerGeo = new THREE.OctahedronGeometry(1.8, 0);
+        const innerMat = new THREE.MeshBasicMaterial({
+            color: 0x818cf8,
+            wireframe: true,
+            transparent: true,
+            opacity: 0.35
+        });
+        const innerMesh = new THREE.Mesh(innerGeo, innerMat);
+        coreGroup.add(innerMesh);
+        coreGroup.position.set(4, 1, -2);
+
+        const cubesGroup = new THREE.Group();
+        scene.add(cubesGroup);
+        const cubeGeo = new THREE.BoxGeometry(0.6, 0.6, 0.6);
+        const cubeEdges = new THREE.EdgesGeometry(cubeGeo);
+
+        for (let i = 0; i < 28; i++) {
+            const lineMat = new THREE.LineBasicMaterial({
+                color: i % 2 === 0 ? 0x29B5E8 : 0x6366f1,
+                transparent: true,
+                opacity: 0.3
+            });
+            const cubeWire = new THREE.LineSegments(cubeEdges, lineMat);
+            cubeWire.position.set(
+                (Math.random() - 0.5) * 28,
+                (Math.random() - 0.5) * 35,
+                (Math.random() - 0.5) * 18 - 4
+            );
+            cubeWire.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, 0);
+            cubeWire.userData = {
+                rotSpeedX: (Math.random() - 0.5) * 0.01,
+                rotSpeedY: (Math.random() - 0.5) * 0.01
+            };
+            cubesGroup.add(cubeWire);
+        }
+
+        const particleCount = 1200;
+        const posArray = new Float32Array(particleCount * 3);
+        for (let i = 0; i < particleCount * 3; i++) {
+            posArray[i] = (Math.random() - 0.5) * 45;
+        }
+        const partGeo = new THREE.BufferGeometry();
+        partGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+        const partMat = new THREE.PointsMaterial({
+            size: 0.055,
+            color: 0x38bdf8,
+            transparent: true,
+            opacity: 0.65
+        });
+        const particleMesh = new THREE.Points(partGeo, partMat);
+        scene.add(particleMesh);
+
+        let scrollPercent = 0;
+        let mouseX = 0;
+        let mouseY = 0;
+
+        window.addEventListener('scroll', () => {
+            const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+            scrollPercent = maxScroll > 0 ? window.scrollY / maxScroll : 0;
+            document.getElementById('scroll-progress').style.width = `${scrollPercent * 100}%`;
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+            mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+        });
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            coreMesh.rotation.y += 0.003;
+            coreMesh.rotation.x += 0.0015;
+            innerMesh.rotation.y -= 0.005;
+            innerMesh.rotation.z += 0.002;
+
+            const targetX = Math.cos(scrollPercent * Math.PI * 2) * 4.2;
+            const targetY = 1 - scrollPercent * 8;
+            coreGroup.position.x += (targetX + mouseX * 0.8 - coreGroup.position.x) * 0.05;
+            coreGroup.position.y += (targetY - mouseY * 0.8 - coreGroup.position.y) * 0.05;
+            coreGroup.rotation.z = scrollPercent * Math.PI * 2;
+
+            camera.position.y += (-scrollPercent * 8 - camera.position.y) * 0.06;
+            camera.rotation.y += (-mouseX * 0.06 - camera.rotation.y) * 0.05;
+            camera.rotation.x += (-mouseY * 0.06 - camera.rotation.x) * 0.05;
+
+            cubesGroup.children.forEach(cube => {
+                cube.rotation.x += cube.userData.rotSpeedX;
+                cube.rotation.y += cube.userData.rotSpeedY;
+            });
+
+            particleMesh.rotation.y += 0.0006;
+
+            renderer.render(scene, camera);
+        }
+        animate();
+    </script>
+</body>
+</html>
