@@ -79,3 +79,21 @@ html, body {
 ::-webkit-scrollbar-thumb:hover {
     background: #29B5E8;
 }
+
+/* Certifications: fully clickable credential card */
+.cert-card {
+    text-decoration: none;
+    cursor: pointer;
+}
+.cert-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.7), 0 0 30px rgba(41, 181, 232, 0.18),
+                inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+.cert-card:focus-visible {
+    outline: 2px solid #29B5E8;
+    outline-offset: 4px;
+}
+@media (prefers-reduced-motion: reduce) {
+    .cert-card, .cert-card:hover { transition: none; transform: none; }
+}
