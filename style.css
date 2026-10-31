@@ -39,3 +39,6 @@ body[data-theme="light"] .theme-toggle { background:#fff; color:#30435a; border-
 body[data-theme="light"] input, body[data-theme="light"] textarea { background:rgba(255,255,255,.92) !important; border-color:rgba(28,54,79,.22) !important; color:#172335 !important; }
 body[data-theme="light"] input::placeholder, body[data-theme="light"] textarea::placeholder { color:#738196 !important; }
 @media (prefers-reduced-motion:reduce) { .theme-toggle { transition:none; } }
+
+.gemini-badge { overflow:hidden; }
+.gemini-badge iframe { display:block; border:0; }

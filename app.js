@@ -12,6 +12,7 @@ try {
 
 function applyTheme(theme, persist = true) {
     document.body.dataset.theme = theme;
+    window.dispatchEvent(new CustomEvent('portfolio-theme-change', { detail: { theme } }));
     if (themeToggle) {
         const nextTheme = theme === 'dark' ? 'light' : 'dark';
         themeToggle.setAttribute('aria-label', `Switch to ${nextTheme} theme`);
@@ -170,6 +171,39 @@ partGeo.setAttribute('position', new THREE.BufferAttribute(partPos, 3));
 const partMat = new THREE.PointsMaterial({ size: 0.04, color: 0x38bdf8, transparent: true, opacity: 0.5 });
 const particles = new THREE.Points(partGeo, partMat);
 scene.add(particles);
+
+// Retune only the 3D artwork for the selected page theme; dark mode keeps its original palette.
+function updateThreeTheme(theme) {
+    const light = theme === 'light';
+    scene.fog.color.setHex(light ? 0xf3f6fa : 0x03050a);
+    scene.fog.density = light ? 0.022 : 0.035;
+
+    metalMaterial.color.setHex(light ? 0x1f3449 : 0x161f30);
+    metalMaterial.metalness = light ? 0.24 : 0.88;
+    metalMaterial.roughness = light ? 0.38 : 0.22;
+    cyanWireMaterial.color.setHex(light ? 0x005e80 : 0x29b5e8);
+    cyanWireMaterial.opacity = light ? 1 : 0.55;
+    indigoWireMaterial.color.setHex(light ? 0x414b91 : 0x818cf8);
+    indigoWireMaterial.opacity = light ? 0.9 : 0.45;
+
+    kernelMat.color.setHex(light ? 0x007394 : 0x29b5e8);
+    kernelMat.emissive.setHex(light ? 0x07526d : 0x0ea5e9);
+    kernelMat.emissiveIntensity = light ? 0.24 : 0.7;
+    ring1Mat.color.setHex(light ? 0x006586 : 0x29b5e8);
+    ring1Mat.opacity = light ? 0.78 : 0.5;
+    ring2Mat.color.setHex(light ? 0x454f91 : 0x818cf8);
+    ring2Mat.opacity = light ? 0.62 : 0.35;
+    partMat.color.setHex(light ? 0x35566e : 0x38bdf8);
+    partMat.opacity = light ? 0.5 : 0.5;
+
+    ambientLight.intensity = light ? 0.46 : 0.5;
+    keyLight.intensity = light ? 1.35 : 2.2;
+    rimLight.intensity = light ? 2.0 : 4;
+    bottomLight.intensity = light ? 1.6 : 3;
+    renderer.toneMappingExposure = light ? 0.9 : 1.2;
+}
+window.addEventListener('portfolio-theme-change', (event) => updateThreeTheme(event.detail.theme));
+updateThreeTheme(document.body.dataset.theme || 'dark');
 
 // Initial Hero Pose
 productGroup.rotation.set(0.35, -0.4, 0);

@@ -285,13 +285,32 @@
                     <h2 class="font-display text-3xl sm:text-5xl font-bold">Certifications</h2>
                 </div>
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
-                    <article class="apple-card p-6 sm:p-8 rounded-3xl">
-                        <p class="font-mono text-[11px] uppercase tracking-widest text-snow">Anthropic · October 2026</p>
-                        <h3 class="font-display text-xl font-bold text-white mt-2">Claude Certified Developer – Foundations</h3>
+                    <article class="cert-card apple-card flex flex-col sm:flex-row items-center gap-6 p-6 sm:p-8 rounded-3xl h-full">
+                        <img src="https://images.credly.com/images/f101c6ac-8a2d-4220-b381-70e3e6c364e3/linkedin_thumb_blob"
+                             alt="Claude Certified Developer – Foundations badge issued by Anthropic"
+                             width="120" height="120" loading="lazy"
+                             class="cert-badge w-28 h-28 shrink-0 rounded-2xl object-contain">
+                        <div class="text-center sm:text-left space-y-2">
+                            <p class="font-mono text-[11px] uppercase tracking-widest text-snow">Anthropic · October 2026</p>
+                            <h3 class="font-display text-xl sm:text-2xl font-bold text-white leading-snug">Claude Certified Developer – Foundations</h3>
+                            <a href="https://www.credly.com/badges/62c01c17-efe6-48f5-8277-9b5535ec0580/public_url" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 pt-1 text-xs font-mono text-snow hover:text-white transition-colors">
+                                <i data-lucide="badge-check" class="w-4 h-4" aria-hidden="true"></i> Verify on Credly
+                                <i data-lucide="arrow-up-right" class="w-3.5 h-3.5" aria-hidden="true"></i>
+                            </a>
+                        </div>
                     </article>
-                    <article class="apple-card p-6 sm:p-8 rounded-3xl">
-                        <p class="font-mono text-[11px] uppercase tracking-widest text-snow">Google Cloud · September 2026</p>
-                        <h3 class="font-display text-xl font-bold text-white mt-2">Deploy Gemini Enterprise with Workspace Data and Model Armor</h3>
+                    <article class="cert-card apple-card flex flex-col sm:flex-row items-center gap-6 p-6 sm:p-8 rounded-3xl h-full">
+                        <div class="gemini-badge w-[120px] h-[155px] shrink-0 flex items-center justify-center rounded-2xl bg-white/5 border border-white/10" aria-label="Official Google Cloud badge">
+                            <div data-iframe-width="120" data-iframe-height="155" data-share-badge-id="fc8ecdb1-b6c3-4962-b7b0-938cb2b33287" data-share-badge-host="https://www.credly.com"></div>
+                        </div>
+                        <div class="text-center sm:text-left space-y-2">
+                            <p class="font-mono text-[11px] uppercase tracking-widest text-snow">Google Cloud · September 2026</p>
+                            <h3 class="font-display text-xl sm:text-2xl font-bold text-white leading-snug">Deploy Gemini Enterprise with Workspace Data and Model Armor</h3>
+                            <a href="https://www.credly.com/badges/fc8ecdb1-b6c3-4962-b7b0-938cb2b33287/public_url" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 pt-1 text-xs font-mono text-snow hover:text-white transition-colors">
+                                <i data-lucide="badge-check" class="w-4 h-4" aria-hidden="true"></i> Verify on Credly
+                                <i data-lucide="arrow-up-right" class="w-3.5 h-3.5" aria-hidden="true"></i>
+                            </a>
+                        </div>
                     </article>
                 </div>
             </div>
@@ -351,6 +370,8 @@
             <p class="mt-2 text-[10px] text-slate-600">Last updated: October 31, 2026</p>
         </footer>
     </main>
+
+    <script async src="https://cdn.credly.com/assets/utilities/embed.js"></script>
 
     <!-- Three.js & GSAP ScrollTrigger Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
