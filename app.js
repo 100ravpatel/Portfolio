@@ -1,18 +1,64 @@
 // Initialize Lucide Icons
 lucide.createIcons();
+
+// Theme preference is saved in this browser and defaults to the portfolio's dark theme.
+const themeToggle = document.getElementById('theme-toggle');
+let savedTheme = 'dark';
+try {
+    savedTheme = localStorage.getItem('saurav-portfolio-theme') || 'dark';
+} catch (error) {
+    savedTheme = 'dark';
+}
+
+function applyTheme(theme, persist = true) {
+    document.body.dataset.theme = theme;
+    if (themeToggle) {
+        const nextTheme = theme === 'dark' ? 'light' : 'dark';
+        themeToggle.setAttribute('aria-label', `Switch to ${nextTheme} theme`);
+        themeToggle.setAttribute('title', `Switch to ${nextTheme} theme`);
+        themeToggle.setAttribute('aria-pressed', String(theme === 'light'));
+        themeToggle.innerHTML = `<i data-lucide="${theme === 'dark' ? 'sun' : 'moon'}" aria-hidden="true"></i>`;
+        lucide.createIcons();
+    }
+    if (persist) {
+        try {
+            localStorage.setItem('saurav-portfolio-theme', theme);
+        } catch (error) {
+            // The selected theme still applies for this page view if storage is unavailable.
+        }
+    }
+}
+
+applyTheme(savedTheme, false);
+if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+        applyTheme(document.body.dataset.theme === 'dark' ? 'light' : 'dark');
+    });
+}
+
 gsap.registerPlugin(ScrollTrigger);
 
 // ============================================================================
 // 1. THREE.JS APPLE-STYLE 3D HARDWARE CORE SETUP
-// Mobile and tablet use lightweight, in-flow Snowflake/Tableau artwork instead.
 // ============================================================================
-if (window.matchMedia("(min-width: 1024px)").matches) {
 const canvas = document.getElementById('webgl-stage');
 const scene = new THREE.Scene();
 scene.fog = new THREE.FogExp2(0x03050a, 0.035);
 
-const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
-camera.position.set(0, 0, 11);
+const camera = new THREE.PerspectiveCamera(45, window.innerWidth / Math.max(window.innerHeight, 1), 0.1, 100);
+
+// Fit the largest orbital ring within narrow phone viewports.
+function fitCameraToViewport() {
+    const aspect = window.innerWidth / Math.max(window.innerHeight, 1);
+    const halfFov = camera.fov * Math.PI / 360;
+    const targetFrameSize = 7.25;
+    const distanceForWidth = targetFrameSize / (2 * Math.tan(halfFov) * aspect);
+    const distanceForHeight = targetFrameSize / (2 * Math.tan(halfFov));
+    camera.aspect = aspect;
+    camera.position.z = Math.max(11, distanceForWidth, distanceForHeight);
+    camera.updateProjectionMatrix();
+}
+fitCameraToViewport();
 
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -242,8 +288,7 @@ window.addEventListener('mousemove', (e) => {
 });
 
 window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
+    fitCameraToViewport();
     renderer.setSize(window.innerWidth, window.innerHeight);
     ScrollTrigger.refresh();
 });
@@ -265,17 +310,6 @@ function animate() {
     renderer.render(scene, camera);
 }
 animate();
-} else {
-    const updateMobileProgress = () => {
-        const scrollable = document.documentElement.scrollHeight - window.innerHeight;
-        const progress = scrollable > 0 ? window.scrollY / scrollable : 0;
-        const bar = document.getElementById('scroll-progress');
-        if (bar) bar.style.width = `${Math.max(0, Math.min(1, progress)) * 100}%`;
-    };
-    window.addEventListener('scroll', updateMobileProgress, { passive: true });
-    window.addEventListener('resize', updateMobileProgress);
-    updateMobileProgress();
-}
 
 // ============================================================================
 // 5. GOOGLE SHEETS CONTACT FORM HANDLER
