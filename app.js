@@ -4,7 +4,9 @@ gsap.registerPlugin(ScrollTrigger);
 
 // ============================================================================
 // 1. THREE.JS APPLE-STYLE 3D HARDWARE CORE SETUP
+// Mobile and tablet use lightweight, in-flow Snowflake/Tableau artwork instead.
 // ============================================================================
+if (window.matchMedia("(min-width: 1024px)").matches) {
 const canvas = document.getElementById('webgl-stage');
 const scene = new THREE.Scene();
 scene.fog = new THREE.FogExp2(0x03050a, 0.035);
@@ -144,7 +146,7 @@ const masterTl = gsap.timeline({
             document.getElementById('scroll-progress').style.width = `${p * 100}%`;
             if (hudLabel) {
                 if (p < 0.18) hudLabel.textContent = "STAGE 01 // ASSEMBLED DATA CORE";
-                else if (p < 0.42) hudLabel.textContent = "STAGE 02 // 500M+ DAILY TELEMETRY";
+                else if (p < 0.42) hudLabel.textContent = "STAGE 02 // DATA PLATFORM PERFORMANCE";
                 else if (p < 0.68) hudLabel.textContent = "STAGE 03 // EXPLODED SNOWFLAKE LAYERS";
                 else if (p < 0.85) hudLabel.textContent = "STAGE 04 // TABLEAU BI ENGINE";
                 else hudLabel.textContent = "STAGE 05 // READY FOR CONNECTION";
@@ -263,6 +265,17 @@ function animate() {
     renderer.render(scene, camera);
 }
 animate();
+} else {
+    const updateMobileProgress = () => {
+        const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = scrollable > 0 ? window.scrollY / scrollable : 0;
+        const bar = document.getElementById('scroll-progress');
+        if (bar) bar.style.width = `${Math.max(0, Math.min(1, progress)) * 100}%`;
+    };
+    window.addEventListener('scroll', updateMobileProgress, { passive: true });
+    window.addEventListener('resize', updateMobileProgress);
+    updateMobileProgress();
+}
 
 // ============================================================================
 // 5. GOOGLE SHEETS CONTACT FORM HANDLER
