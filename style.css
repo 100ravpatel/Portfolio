@@ -42,3 +42,11 @@ body[data-theme="light"] input::placeholder, body[data-theme="light"] textarea::
 
 .gemini-badge { overflow:hidden; }
 .gemini-badge iframe { display:block; border:0; }
+/* Center an unmatched final certification card on two-column desktop layouts. */
+@media (min-width: 1024px) {
+  #certifications .cert-card:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: calc((100% - 1.25rem) / 2);
+  }
+}
