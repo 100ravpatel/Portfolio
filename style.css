@@ -40,13 +40,11 @@ body[data-theme="light"] input, body[data-theme="light"] textarea { background:r
 body[data-theme="light"] input::placeholder, body[data-theme="light"] textarea::placeholder { color:#738196 !important; }
 @media (prefers-reduced-motion:reduce) { .theme-toggle { transition:none; } }
 
-.gemini-badge { overflow:hidden; }
-.gemini-badge iframe { display:block; border:0; }
 /* Center an unmatched final certification card on two-column desktop layouts. */
 @media (min-width: 1024px) {
-  #certifications .cert-card:last-child:nth-child(odd) {
-    grid-column: 1 / -1;
-    justify-self: center;
-    width: calc((100% - 1.25rem) / 2);
-  }
+#certifications .cert-card:last-child:nth-child(odd) {
+grid-column: 1 / -1;
+justify-self: center;
+width: calc((100% - 1.25rem) / 2);
+}
 }
