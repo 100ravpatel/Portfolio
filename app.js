@@ -37,6 +37,16 @@ if (themeToggle) {
     });
 }
 
+// Presentation-only sign-in: required fields provide a simple formality before opening the public resource.
+const knowledgeLoginForm = document.getElementById('knowledge-login-form');
+if (knowledgeLoginForm) {
+    knowledgeLoginForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        if (!knowledgeLoginForm.reportValidity()) return;
+        window.open('https://wasteofbyte.github.io/Snowflake_interview_prep/', '_blank', 'noopener,noreferrer');
+    });
+}
+
 gsap.registerPlugin(ScrollTrigger);
 
 // ============================================================================

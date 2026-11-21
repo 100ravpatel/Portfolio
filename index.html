@@ -59,6 +59,7 @@
             <a href="#tableau-bi" class="hover:text-white transition-colors">Tableau BI</a>
             <a href="#skills" class="hover:text-white transition-colors">Tech Stack</a>
             <a href="#certifications" class="hover:text-white transition-colors">Certifications</a>
+            <a href="#knowledge-base" class="hover:text-white transition-colors">Knowledge Base</a>
             <a href="Saurav_Patel.pdf" download="Saurav_Patel.pdf" class="px-3.5 py-1.5 rounded-full border border-snow/50 text-snow hover:bg-snow hover:text-dark transition-all">Download resume</a>
             <a href="#contact" class="px-3.5 py-1.5 rounded-full bg-white text-black font-semibold hover:bg-snow transition-all">Contact</a>
         </nav>
@@ -342,14 +343,57 @@
         </div>
     </section>
 
-    <!-- CHAPTER 6: CONTACT FORM -->
+    <!-- KNOWLEDGE BASE: LITE OVERVIEW AND FULL LAB MATERIAL -->
+    <section id="knowledge-base" class="scroll-section min-h-screen flex items-center py-24 px-6">
+        <div class="max-w-5xl mx-auto w-full apple-card p-8 sm:p-12 rounded-3xl">
+            <div class="text-center max-w-2xl mx-auto mb-10">
+                <p class="font-mono text-xs uppercase tracking-widest text-snow mb-2">LEARNING MATERIALS</p>
+                <h2 class="font-display text-3xl sm:text-4xl font-bold mb-3">Snowflake Knowledge Base</h2>
+                <div class="access-notice-wrap" tabindex="0" aria-describedby="access-notice">
+                    <p class="text-slate-300 text-sm">Explore a quick overview or continue to the full lab material.</p>
+                    <span id="access-notice" class="access-notice" role="tooltip">This content is access controlled. Access the light version for a quick overview. And for the complete material, please raise an access request.</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <article class="glass-pill rounded-2xl p-6 sm:p-8 flex flex-col items-start">
+                    <i data-lucide="book-open-check" class="w-8 h-8 text-snow mb-4" aria-hidden="true"></i>
+                    <h3 class="font-display text-xl font-bold mb-2">Lite version</h3>
+                    <p class="text-slate-300 text-sm leading-relaxed mb-6">A quick overview of key Snowflake concepts and interview notes.</p>
+                    <a href="https://100ravpatel.github.io/Snowflake-cheet-sheet/" target="_blank" rel="noopener noreferrer" class="mt-auto inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-snow text-dark font-display font-bold text-sm hover:bg-white transition-colors">
+                        Access lite version <i data-lucide="arrow-up-right" class="w-4 h-4" aria-hidden="true"></i>
+                    </a>
+                </article>
+
+                <article class="glass-pill rounded-2xl p-6 sm:p-8">
+                    <i data-lucide="lock-keyhole" class="w-8 h-8 text-snow mb-4" aria-hidden="true"></i>
+                    <h3 class="font-display text-xl font-bold mb-2">Full version with labs</h3>
+                    <p class="text-slate-300 text-sm leading-relaxed mb-5">Request access to the complete learning material and hands-on labs.</p>
+                    <form id="knowledge-login-form" class="space-y-4">
+                        <div>
+                            <label for="knowledge-user" class="block text-xs font-mono uppercase text-slate-300 mb-1.5">Login ID</label>
+                            <input id="knowledge-user" name="login" type="text" autocomplete="username" required placeholder="Enter your login ID" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/15 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-snow transition-colors">
+                        </div>
+                        <div>
+                            <label for="knowledge-password" class="block text-xs font-mono uppercase text-slate-300 mb-1.5">Password</label>
+                            <input id="knowledge-password" name="password" type="password" autocomplete="current-password" required placeholder="Enter your password" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/15 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-snow transition-colors">
+                        </div>
+                        <button type="submit" class="w-full py-3 px-5 rounded-xl border border-snow/50 text-snow font-display font-bold text-sm hover:bg-snow hover:text-dark transition-colors">Continue to full version</button>
+                    </form>
+                    <p class="text-slate-400 text-xs mt-4">Need access? <a href="#contact" class="text-snow underline">Send an access request</a>.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- CHAPTER 7: CONTACT FORM -->
     <section id="contact" class="scroll-section min-h-screen flex items-center py-24 px-6">
         <div class="max-w-3xl mx-auto w-full apple-card p-8 sm:p-12 rounded-3xl">
             <div class="text-center max-w-xl mx-auto mb-8">
-                <p class="font-mono text-xs uppercase tracking-widest text-snow mb-2">// 06. CAREER OPPORTUNITIES</p>
-                <h2 class="font-display text-3xl sm:text-4xl font-bold mb-2">Discuss a Data Engineering Opportunity</h2>
+                <p class="font-mono text-xs uppercase tracking-widest text-snow mb-2">// 07. LET’S CONNECT</p>
+                <h2 class="font-display text-3xl sm:text-4xl font-bold mb-2">Projects, Collaboration & Access</h2>
                 <p class="text-slate-300 text-sm">
-                    For Snowflake Data Engineer opportunities, contact me using the form below or email
+                    Get in touch to discuss a project, collaboration, or request access to the full learning material. Use the form below or email
                     <a href="mailto:sauravpateliit120@gmail.com" class="text-snow underline">sauravpateliit120@gmail.com</a>.
                 </p>
             </div>
@@ -369,14 +413,14 @@
                 </div>
 
                 <div>
-                    <label for="company" class="block text-xs font-mono uppercase text-slate-300 mb-1.5">Company / Role Opportunity</label>
-                    <input type="text" id="company" name="company" placeholder="e.g., Hiring Manager — Lead Snowflake Data Engineer"
+                    <label for="company" class="block text-xs font-mono uppercase text-slate-300 mb-1.5">Company / Project / Request</label>
+                    <input type="text" id="company" name="company" placeholder="e.g., Project discussion or knowledge base access"
                            class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/15 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-snow transition-colors">
                 </div>
 
                 <div>
                     <label for="message" class="block text-xs font-mono uppercase text-slate-300 mb-1.5">Message *</label>
-                    <textarea id="message" name="message" rows="4" required placeholder="Hi Saurav, we'd love to discuss an opportunity with you..."
+                    <textarea id="message" name="message" rows="4" required placeholder="Hi Saurav, I’d like to discuss a project or request access to the full learning material..."
                               class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/15 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-snow transition-colors resize-none"></textarea>
                 </div>
 

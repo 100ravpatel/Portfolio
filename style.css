@@ -10,6 +10,11 @@ html, body { background-color:#03050a; color:#f8fafc; overflow-x:hidden; scroll-
 .progress-bar { position:fixed; top:0; left:0; height:3px; background:linear-gradient(90deg,#29B5E8,#818cf8,#38bdf8); z-index:100; width:0%; }
 ::-webkit-scrollbar { width:8px; } ::-webkit-scrollbar-track { background:#03050a; } ::-webkit-scrollbar-thumb { background:#1e293b; border-radius:4px; } ::-webkit-scrollbar-thumb:hover { background:#29B5E8; }
 .cert-card { text-decoration:none; cursor:pointer; } .cert-card:hover { transform:translateY(-4px); box-shadow:0 30px 70px rgba(0,0,0,.7),0 0 30px rgba(41,181,232,.18),inset 0 1px 0 rgba(255,255,255,.12); } .cert-card:focus-visible { outline:2px solid #29B5E8; outline-offset:4px; }
+.access-notice-wrap { position:relative; display:inline-block; cursor:help; }
+.access-notice { position:absolute; z-index:20; left:50%; bottom:calc(100% + .75rem); width:min(22rem, calc(100vw - 3rem)); padding:.85rem 1rem; border:1px solid rgba(41,181,232,.45); border-radius:.85rem; background:rgba(3,5,10,.96); color:#e2e8f0; font-size:.75rem; line-height:1.55; text-align:left; box-shadow:0 12px 32px rgba(0,0,0,.45); opacity:0; visibility:hidden; transform:translate(-50%, .35rem); transition:opacity .18s ease, transform .18s ease, visibility .18s; }
+.access-notice-wrap:hover .access-notice, .access-notice-wrap:focus .access-notice, .access-notice-wrap:focus-within .access-notice { opacity:1; visibility:visible; transform:translate(-50%, 0); }
+body[data-theme="light"] .access-notice { background:rgba(255,255,255,.98); color:#26384d; border-color:rgba(8,121,159,.4); }
+.access-notice-wrap:focus-visible { outline:2px solid #29B5E8; outline-offset:5px; border-radius:.25rem; }
 @media print { #webgl-stage, header, #scroll-progress, .hud-pill, #contact, footer, .animate-bounce { display:none !important; } body { background:#03050a !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; } }
 @media (prefers-reduced-motion:reduce) { html,body { scroll-behavior:auto; } *,*::before,*::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; } .cert-card,.cert-card:hover { transform:none; } }
 
