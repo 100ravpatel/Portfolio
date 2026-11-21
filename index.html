@@ -59,7 +59,15 @@
             <a href="#tableau-bi" class="hover:text-white transition-colors">Tableau BI</a>
             <a href="#skills" class="hover:text-white transition-colors">Tech Stack</a>
             <a href="#certifications" class="hover:text-white transition-colors">Certifications</a>
-            <a href="#knowledge-base" class="hover:text-white transition-colors">Knowledge Base</a>
+            <div class="nav-popover-wrap">
+                <a href="#knowledge-base" class="nav-popover-trigger hover:text-white transition-colors" aria-haspopup="true" aria-describedby="knowledge-nav-panel">Knowledge Base</a>
+                <div id="knowledge-nav-panel" class="nav-popover" role="region" aria-label="Knowledge Base access options">
+                    <p class="font-display text-sm font-semibold text-white">Snowflake Knowledge Base</p>
+                    <p class="text-xs text-slate-300 leading-relaxed mt-2">This content is access controlled. Access the light version for a quick overview. And for the complete material, please raise an access request.</p>
+                    <a href="https://100ravpatel.github.io/Snowflake-cheet-sheet/" target="_blank" rel="noopener noreferrer" class="nav-popover-link nav-popover-lite">Access lite material <i data-lucide="arrow-up-right" class="w-3.5 h-3.5" aria-hidden="true"></i></a>
+                    <button type="button" class="nav-popover-link nav-popover-request" data-open-knowledge-login>Access full material <i data-lucide="lock-keyhole" class="w-3.5 h-3.5" aria-hidden="true"></i></button>
+                </div>
+            </div>
             <a href="Saurav_Patel.pdf" download="Saurav_Patel.pdf" class="px-3.5 py-1.5 rounded-full border border-snow/50 text-snow hover:bg-snow hover:text-dark transition-all">Download resume</a>
             <a href="#contact" class="px-3.5 py-1.5 rounded-full bg-white text-black font-semibold hover:bg-snow transition-all">Contact</a>
         </nav>
@@ -369,22 +377,34 @@
                     <i data-lucide="lock-keyhole" class="w-8 h-8 text-snow mb-4" aria-hidden="true"></i>
                     <h3 class="font-display text-xl font-bold mb-2">Full version with labs</h3>
                     <p class="text-slate-300 text-sm leading-relaxed mb-5">Request access to the complete learning material and hands-on labs.</p>
-                    <form id="knowledge-login-form" class="space-y-4">
-                        <div>
-                            <label for="knowledge-user" class="block text-xs font-mono uppercase text-slate-300 mb-1.5">Login ID</label>
-                            <input id="knowledge-user" name="login" type="text" autocomplete="username" required placeholder="Enter your login ID" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/15 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-snow transition-colors">
-                        </div>
-                        <div>
-                            <label for="knowledge-password" class="block text-xs font-mono uppercase text-slate-300 mb-1.5">Password</label>
-                            <input id="knowledge-password" name="password" type="password" autocomplete="current-password" required placeholder="Enter your password" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/15 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-snow transition-colors">
-                        </div>
-                        <button type="submit" class="w-full py-3 px-5 rounded-xl border border-snow/50 text-snow font-display font-bold text-sm hover:bg-snow hover:text-dark transition-colors">Continue to full version</button>
-                    </form>
+                    <button type="button" data-open-knowledge-login class="w-full py-3 px-5 rounded-xl border border-snow/50 text-snow font-display font-bold text-sm hover:bg-snow hover:text-dark transition-colors">Access full material</button>
                     <p class="text-slate-400 text-xs mt-4">Need access? <a href="#contact" class="text-snow underline">Send an access request</a>.</p>
                 </article>
             </div>
         </div>
     </section>
+
+    <div id="knowledge-login-modal" class="knowledge-login-modal" aria-hidden="true">
+        <section class="knowledge-login-dialog apple-card rounded-3xl p-7 sm:p-9" role="dialog" aria-modal="true" aria-labelledby="knowledge-login-title">
+            <button type="button" class="knowledge-login-close" data-close-knowledge-login aria-label="Close login window"><i data-lucide="x" aria-hidden="true"></i></button>
+            <p class="font-mono text-xs uppercase tracking-widest text-snow mb-2">FULL LEARNING MATERIAL</p>
+            <h2 id="knowledge-login-title" class="font-display text-2xl sm:text-3xl font-bold mb-2">Sign in to continue</h2>
+            <p class="text-slate-300 text-sm mb-6">Enter your login ID and password to open the full version with labs.</p>
+            <form id="knowledge-modal-login-form" class="space-y-4">
+                <div>
+                    <label for="knowledge-modal-user" class="block text-xs font-mono uppercase text-slate-300 mb-1.5">Login ID</label>
+                    <input id="knowledge-modal-user" type="text" autocomplete="username" required placeholder="Enter your login ID" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/15 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-snow transition-colors">
+                </div>
+                <div>
+                    <label for="knowledge-modal-password" class="block text-xs font-mono uppercase text-slate-300 mb-1.5">Password</label>
+                    <input id="knowledge-modal-password" type="password" autocomplete="current-password" required placeholder="Enter your password" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/15 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-snow transition-colors">
+                </div>
+                <button type="submit" class="w-full py-3 px-5 rounded-xl bg-snow text-dark font-display font-bold text-sm hover:bg-white transition-colors">Login and open full material</button>
+            </form>
+            <p id="knowledge-login-status" class="hidden mt-5 rounded-xl border border-snow/30 bg-snow/10 p-4 text-sm text-slate-100" role="status" aria-live="polite"></p>
+            <p class="text-slate-400 text-xs mt-5">Need access? <a href="#contact" data-close-knowledge-login class="text-snow underline">Ask for access</a>.</p>
+        </section>
+    </div>
 
     <!-- CHAPTER 7: CONTACT FORM -->
     <section id="contact" class="scroll-section min-h-screen flex items-center py-24 px-6">

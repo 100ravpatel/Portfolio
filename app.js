@@ -37,13 +37,65 @@ if (themeToggle) {
     });
 }
 
-// Presentation-only sign-in: required fields provide a simple formality before opening the public resource.
-const knowledgeLoginForm = document.getElementById('knowledge-login-form');
-if (knowledgeLoginForm) {
-    knowledgeLoginForm.addEventListener('submit', (event) => {
+// Presentation-only sign-in before opening the public full-material site.
+const knowledgeLoginModal = document.getElementById('knowledge-login-modal');
+const knowledgeModalForm = document.getElementById('knowledge-modal-login-form');
+const knowledgeModalUser = document.getElementById('knowledge-modal-user');
+const knowledgeModalPassword = document.getElementById('knowledge-modal-password');
+const knowledgeLoginStatus = document.getElementById('knowledge-login-status');
+function closeKnowledgeLogin() {
+    if (!knowledgeLoginModal) return;
+    knowledgeLoginModal.classList.remove('is-open');
+    knowledgeLoginModal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('modal-open');
+}
+document.querySelectorAll('[data-open-knowledge-login]').forEach((button) => {
+    button.addEventListener('click', () => {
+        if (!knowledgeLoginModal) return;
+        knowledgeLoginModal.classList.add('is-open');
+        knowledgeLoginModal.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('modal-open');
+        window.setTimeout(() => knowledgeModalUser?.focus(), 0);
+    });
+});
+document.querySelectorAll('[data-close-knowledge-login]').forEach((button) => {
+    button.addEventListener('click', closeKnowledgeLogin);
+});
+if (knowledgeLoginModal) {
+    knowledgeLoginModal.addEventListener('click', (event) => {
+        if (event.target === knowledgeLoginModal) closeKnowledgeLogin();
+    });
+}
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') closeKnowledgeLogin();
+});
+if (knowledgeModalForm) {
+    knowledgeModalForm.addEventListener('submit', (event) => {
         event.preventDefault();
-        if (!knowledgeLoginForm.reportValidity()) return;
-        window.open('https://wasteofbyte.github.io/Snowflake_interview_prep/', '_blank', 'noopener,noreferrer');
+        if (!knowledgeModalForm.reportValidity()) return;
+        const loginId = knowledgeModalUser.value.trim();
+        const password = knowledgeModalPassword.value;
+        let welcomeMessage = '';
+
+        if (loginId === '100rav' && password === 'Lund') {
+            welcomeMessage = 'Welcome, Saurav! Opening the full learning material…';
+        } else if (loginId === 'Generic' && password === 'Generic@123') {
+            welcomeMessage = 'Welcome! This is a generic ID used by many people. Please access and use the material to its fullest.';
+        }
+
+        if (!welcomeMessage) {
+            knowledgeLoginStatus.textContent = 'That Login ID and password do not match. Please try again.';
+            knowledgeLoginStatus.classList.remove('hidden');
+            knowledgeLoginStatus.classList.add('border-red-400/40', 'bg-red-400/10');
+            return;
+        }
+
+        knowledgeModalForm.classList.add('hidden');
+        knowledgeLoginStatus.textContent = welcomeMessage;
+        knowledgeLoginStatus.classList.remove('hidden', 'border-red-400/40', 'bg-red-400/10');
+        window.setTimeout(() => {
+            window.location.href = 'https://wasteofbyte.github.io/Snowflake_interview_prep/';
+        }, 1600);
     });
 }
 
