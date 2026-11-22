@@ -499,4 +499,4 @@ if (contactForm) {
             submitText.textContent = 'Send Message';
         }
     });
-}
+} 
