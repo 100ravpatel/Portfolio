@@ -1,6 +1,54 @@
 // Initialize Lucide Icons
 lucide.createIcons();
 
+// Compact navigation for phones and narrow windows.
+const mobileNav = document.getElementById('mobile-nav');
+const mobileNavToggle = document.getElementById('mobile-nav-toggle');
+function closeMobileNav() {
+    if (!mobileNav || !mobileNavToggle) return;
+    mobileNav.hidden = true;
+    mobileNavToggle.setAttribute('aria-expanded', 'false');
+    mobileNavToggle.setAttribute('aria-label', 'Open navigation menu');
+    mobileNavToggle.innerHTML = '<i data-lucide="menu" aria-hidden="true"></i><span>Menu</span>';
+    lucide.createIcons();
+}
+if (mobileNav && mobileNavToggle) {
+    mobileNavToggle.addEventListener('click', () => {
+        const isOpen = mobileNavToggle.getAttribute('aria-expanded') === 'true';
+        mobileNav.hidden = isOpen;
+        mobileNavToggle.setAttribute('aria-expanded', String(!isOpen));
+        mobileNavToggle.setAttribute('aria-label', isOpen ? 'Open navigation menu' : 'Close navigation menu');
+        mobileNavToggle.innerHTML = `<i data-lucide="${isOpen ? 'menu' : 'x'}" aria-hidden="true"></i><span>${isOpen ? 'Menu' : 'Close'}</span>`;
+        lucide.createIcons();
+    });
+    mobileNav.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMobileNav));
+    mobileNav.querySelectorAll('[data-open-knowledge-login]').forEach((button) => {
+        button.addEventListener('click', closeMobileNav);
+    });
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') closeMobileNav();
+    });
+    document.addEventListener('click', (event) => {
+        if (!mobileNav.hidden && !mobileNav.contains(event.target) && !mobileNavToggle.contains(event.target)) closeMobileNav();
+    });
+    const mobileSections = mobileNav.querySelectorAll('a[href^="#"]');
+    const mobileSectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            mobileSections.forEach((link) => {
+                const active = link.getAttribute('href') === `#${entry.target.id}`;
+                link.classList.toggle('is-active', active);
+                if (active) link.setAttribute('aria-current', 'location');
+                else link.removeAttribute('aria-current');
+            });
+        });
+    }, { rootMargin: '-35% 0px -55% 0px' });
+    mobileSections.forEach((link) => {
+        const section = document.querySelector(link.getAttribute('href'));
+        if (section) mobileSectionObserver.observe(section);
+    });
+}
+
 // Theme preference is saved in this browser and defaults to the portfolio's dark theme.
 const themeToggle = document.getElementById('theme-toggle');
 let savedTheme = 'dark';

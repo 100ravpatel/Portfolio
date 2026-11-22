@@ -53,6 +53,9 @@
             <i data-lucide="house" class="w-4 h-4 text-snow" aria-hidden="true"></i>
             <span>Home</span>
         </a>
+        <button id="mobile-nav-toggle" class="mobile-nav-toggle md:hidden" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open navigation menu">
+            <i data-lucide="menu" aria-hidden="true"></i><span>Menu</span>
+        </button>
         <nav class="hidden md:flex items-center gap-7 text-xs font-medium text-slate-300 tracking-wide">
             <a href="#telemetry" class="hover:text-white transition-colors">Highlights</a>
             <a href="#snowflake-arch" class="hover:text-white transition-colors">Snowflake Architecture</a>
@@ -75,6 +78,21 @@
             <i data-lucide="sun" aria-hidden="true"></i>
         </button>
     </div>
+    <nav id="mobile-nav" class="mobile-nav md:hidden" aria-label="Mobile navigation" hidden>
+        <a href="#telemetry" class="mobile-nav-link"><span>Highlights</span><i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
+        <a href="#snowflake-arch" class="mobile-nav-link"><span>Snowflake Architecture</span><i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
+        <a href="#tableau-bi" class="mobile-nav-link"><span>Tableau BI</span><i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
+        <a href="#skills" class="mobile-nav-link"><span>Tech Stack</span><i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
+        <a href="#certifications" class="mobile-nav-link"><span>Certifications</span><i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
+        <div class="mobile-knowledge">
+            <span class="mobile-knowledge-label"><i data-lucide="book-open-check" aria-hidden="true"></i> Knowledge Base</span>
+            <p>Snowflake learning material and interview preparation.</p>
+            <a href="https://100ravpatel.github.io/Snowflake-cheet-sheet/" target="_blank" rel="noopener noreferrer" class="mobile-nav-action mobile-nav-action-primary">Access lite material <i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
+            <button type="button" class="mobile-nav-action" data-open-knowledge-login>Access full material <i data-lucide="lock-keyhole" aria-hidden="true"></i></button>
+        </div>
+        <a href="Saurav_Patel.pdf" download="Saurav_Patel.pdf" class="mobile-nav-link"><span>Download resume</span><i data-lucide="download" aria-hidden="true"></i></a>
+        <a href="#contact" class="mobile-nav-link mobile-nav-contact"><span>Contact</span><i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
+    </nav>
 </header>
 
 <!-- SCROLLYTELLING STORY CONTAINER -->
