@@ -127,7 +127,7 @@ if (knowledgeModalForm) {
 
         if (loginId === '100rav' && password === 'Lund') {
             welcomeMessage = 'Welcome, Saurav! Opening the full learning material…';
-        } else if (loginId === 'Generic' && password === 'Generic@123') {
+        } else if (loginId === 'snow.lab' && password === 'snow@123') {
             welcomeMessage = 'Welcome! This is a generic ID used by many people. Please access and use the material to its fullest.';
         }
 
