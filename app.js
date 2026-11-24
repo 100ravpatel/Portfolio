@@ -500,3 +500,30 @@ if (contactForm) {
         }
     });
 } 
+
+
+// ============================================================================
+// 6. ANCHOR DEEP-LINK SCROLL RECOVERY (e.g. #contact from external links)
+// ============================================================================
+function handleDeepLinkScroll() {
+    if (!window.location.hash) return;
+    const hash = window.location.hash;
+    const target = document.querySelector(hash);
+    if (!target) return;
+
+    if (typeof ScrollTrigger !== 'undefined') {
+        ScrollTrigger.refresh();
+    }
+
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+window.addEventListener('load', () => {
+    if (window.location.hash) {
+        // Run after initial paint & Three.js layout calculation
+        setTimeout(handleDeepLinkScroll, 350);
+        setTimeout(handleDeepLinkScroll, 850);
+    }
+});
+
+window.addEventListener('hashchange', handleDeepLinkScroll);
